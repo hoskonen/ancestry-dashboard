@@ -1,13 +1,6 @@
 import Fastify from "fastify";
-
-type TelemetryEvent = {
-  event: string;
-  source?: string;
-  timestamp?: string;
-  data?: Record<string, unknown>;
-};
-
-const events: TelemetryEvent[] = [];
+import { getEvents, saveEvent, type TelemetryEvent } from "./eventStore";
+import "./db";
 
 const app = Fastify({ logger: true });
 
@@ -16,16 +9,12 @@ app.get("/health", async () => {
 });
 
 app.post<{ Body: TelemetryEvent }>("/events", async (request, reply) => {
-  const event = request.body
-
-  events.push(event);
-  console.log('EVENTS: ', events);
-
+  saveEvent(request.body);
   return { success: true };
 });
 
 app.get("/events", async () => {
-  return events;
+  return getEvents();
 });
 
 const start = async () => {
