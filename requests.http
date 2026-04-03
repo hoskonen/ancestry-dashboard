@@ -1,0 +1,15 @@
+@baseUrl = http://localhost:3000
+
+### Check if backend is running
+# GET {{baseUrl}}/health
+
+### Send a telemetry event (simulates game sending data)
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+  "event": "test_event"
+}
+
+### Fetch all stored events (used by dashboard)
+GET {{baseUrl}}/events
