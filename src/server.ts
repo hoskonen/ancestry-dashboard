@@ -1,6 +1,13 @@
 import Fastify from "fastify";
 
-const events: any[] = [];
+type TelemetryEvent = {
+  event: string;
+  source?: string;
+  timestamp?: string;
+  data?: Record<string, unknown>;
+};
+
+const events: TelemetryEvent[] = [];
 
 const app = Fastify({ logger: true });
 
@@ -8,8 +15,8 @@ app.get("/health", async () => {
   return { status: "ok" };
 });
 
-app.post("/events", async (request, reply) => {
-  const event = request.body;
+app.post<{ Body: TelemetryEvent }>("/events", async (request, reply) => {
+  const event = request.body
 
   events.push(event);
   console.log('EVENTS: ', events);
