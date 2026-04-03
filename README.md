@@ -41,8 +41,8 @@ http://localhost:3000/health
 
 ## Roadmap
 
-* [ ] Event ingestion API
-* [ ] SQLite persistence
+* [X] Event ingestion API
+* [X] SQLite persistence
 * [ ] Dashboard UI
 * [ ] Godot integration (telemetry)
 
