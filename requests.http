@@ -20,7 +20,7 @@
 
 ###
 
-# GET {{baseUrl}}/events?event=manual-test
+GET {{baseUrl}}/events?source=godot
 
 # ###
 
@@ -34,4 +34,4 @@
 
 # GET {{baseUrl}}/events?event=manual-test&limit=1
 
-GET http://localhost:3000/events/stats
+# GET http://localhost:3000/events/stats

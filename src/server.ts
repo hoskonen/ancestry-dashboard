@@ -9,7 +9,17 @@ type GetEventsQuery = {
   limit?: string;
 };
 
-const app = Fastify({ logger: true });
+const app = Fastify({
+  logger: {
+    transport: {
+      target: "pino-pretty",
+      options: {
+        translateTime: "HH:MM:ss",
+        ignore: "pid,hostname",
+      },
+    },
+  },
+});
 
 app.get("/health", async () => {
   return { status: "ok" };
