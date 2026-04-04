@@ -2,6 +2,12 @@ import Fastify from "fastify";
 import { getEvents, saveEvent, type TelemetryEvent } from "./eventStore";
 import "./db";
 
+type GetEventsQuery = {
+  event?: string;
+  source?: string;
+  limit?: string;
+};
+
 const app = Fastify({ logger: true });
 
 app.get("/health", async () => {
@@ -13,8 +19,16 @@ app.post<{ Body: TelemetryEvent }>("/events", async (request, reply) => {
   return { success: true };
 });
 
-app.get("/events", async () => {
-  return getEvents();
+app.get<{ Querystring: GetEventsQuery }>("/events", async (request) => {
+  const { event, source, limit } = request.query;
+
+  const parsedLimit = limit ? Number(limit) : undefined
+
+  return getEvents({
+    event,
+    source,
+    limit: parsedLimit && parsedLimit > 0 ? parsedLimit : undefined,
+  });
 });
 
 const start = async () => {

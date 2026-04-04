@@ -3,16 +3,34 @@
 ### Check if backend is running
 # GET {{baseUrl}}/health
 
-## Send a telemetry event (simulates game sending data)
-POST {{baseUrl}}/events
-Content-Type: application/json
+# ## Send a telemetry event (simulates game sending data)
+# POST {{baseUrl}}/events
+# Content-Type: application/json
 
-{
-  "id": 1,
-  "event": "manual-test",
-  "source": "",
-  "data": "first data"
-}
+# {
+#   "id": 1,
+#   "event": "manual-test",
+#   "source": "",
+#   "data": "first data"
+# }
 
 # ### Fetch all stored events (used by dashboard)
 # GET {{baseUrl}}/events
+
+# GET {{baseUrl}}/events
+
+###
+
+# GET {{baseUrl}}/events?event=manual-test
+
+# ###
+
+# GET {{baseUrl}}/events?source=test-client
+
+# ###
+
+# GET {{baseUrl}}/events?limit=5
+
+# ###
+
+GET {{baseUrl}}/events?event=manual-test&limit=1

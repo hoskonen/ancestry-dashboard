@@ -14,16 +14,21 @@ export type StoredTelemetryEvent = {
   data?: Record<string, unknown>;
 };
 
+type EventQuery = {
+  event?: string;
+  source?: string;
+  limit?: number;
+}
+
 const insertEventStmt = db.prepare(`
   INSERT INTO events (event, source, data)
   VALUES (?, ?, ?)
 `);
 
-const selectEventsStmt = db.prepare(`
-  SELECT id, event, source, timestmap, data
+const selectBaseSql = `
+  SELECT id, event, source, timestamp, data
   FROM events
-  ORDER BY id ASC
-`);
+`;
 
 export function saveEvent(event: TelemetryEvent): void {
   const data = event.data ? JSON.stringify(event.data) : null;
@@ -35,8 +40,36 @@ export function saveEvent(event: TelemetryEvent): void {
   );
 }
 
-export function getEvents(): StoredTelemetryEvent[] {
-  const rows = selectEventsStmt.all() as Array<{
+export function getEvents(filters: EventQuery = {}): StoredTelemetryEvent[] {
+  const conditions: string[] = [];
+  const params: Array<string | number> = [];
+
+  let sql = selectBaseSql
+
+  if (filters.event) {
+    conditions.push("event = ?");
+    params.push(filters.event);
+  }
+
+  if (filters.source) {
+    conditions.push("source = ?");
+    params.push(filters.source);
+  }
+
+  if (conditions.length > 0) {
+    sql += ` WHERE ${conditions.join(" AND ")}`;
+  }
+
+  sql += " ORDER BY id ASC";
+
+  if (filters.limit !== undefined) {
+    sql += " LIMIT ?";
+    params.push(filters.limit);
+  }
+
+  const stmt = db.prepare(sql);
+
+  const rows = stmt.all(...params) as Array<{
     id: number;
     event: string;
     source: string | null;
