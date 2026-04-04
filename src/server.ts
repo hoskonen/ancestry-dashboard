@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import { getEvents, saveEvent, type TelemetryEvent } from "./eventStore";
 import "./db";
+import { getEventStats } from "./eventStore";
 
 type GetEventsQuery = {
   event?: string;
@@ -30,6 +31,10 @@ app.get<{ Querystring: GetEventsQuery }>("/events", async (request) => {
     limit: parsedLimit && parsedLimit > 0 ? parsedLimit : undefined,
   });
 });
+
+app.get("/events/stats", async () => {
+  return getEventStats();
+})
 
 const start = async () => {
   try {

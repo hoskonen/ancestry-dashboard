@@ -30,6 +30,17 @@ const selectBaseSql = `
   FROM events
 `;
 
+const totalCountStmt = db.prepare(`
+  SELECT COUNT(*) as total FROM events  
+  `);
+
+const countByEventStmt = db.prepare(`
+  SELECT event, COUNT(*) as count
+  FROM events
+  GROUP BY event
+  ORDER BY count DESC
+`);
+
 export function saveEvent(event: TelemetryEvent): void {
   const data = event.data ? JSON.stringify(event.data) : null;
 
@@ -84,4 +95,18 @@ export function getEvents(filters: EventQuery = {}): StoredTelemetryEvent[] {
     timestamp: row.timestamp,
     data: row.data ? JSON.parse(row.data) : undefined,
   }));
+}
+
+export function getEventStats() {
+  const totalRow = totalCountStmt.get() as { total: number };
+
+  const byEventsRows = countByEventStmt.all() as Array<{
+    event: string;
+    count: number;
+  }>;
+
+  return {
+    total: totalRow.total,
+    byEvent: byEventsRows,
+  };
 }
