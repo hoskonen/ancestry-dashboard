@@ -51,3 +51,12 @@ http://localhost:3000/health
 This project is part of a broader system where a game client (Godot) sends gameplay events to a backend service for analysis and tooling.
 
 The backend is designed to be optional and does not affect core gameplay.
+
+## Frontend
+
+Located in `/frontend/ancestry-dashboard-ui`
+
+Run:
+cd frontend/ancestry-dashboard-ui
+npm install
+npm start
