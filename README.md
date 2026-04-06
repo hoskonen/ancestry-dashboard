@@ -8,8 +8,8 @@ The goal of this project is to collect and visualize gameplay data (telemetry) t
 
 * Node.js + TypeScript
 * Fastify (API)
-* SQLite (planned)
-* Angular (planned)
+* SQLite
+* Angular
 
 ## Current Status
 
