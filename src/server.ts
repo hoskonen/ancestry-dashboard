@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import { getEvents, saveEvent, type TelemetryEvent } from "./eventStore";
 import "./db";
 import { getEventStats } from "./eventStore";
+import cors from '@fastify/cors';
 
 type GetEventsQuery = {
   event?: string;
@@ -48,6 +49,10 @@ app.get("/events/stats", async () => {
 
 const start = async () => {
   try {
+    await app.register(cors, {
+      origin: true,
+    });
+
     await app.listen({ port: 3000 });
     console.log("Server running on http://localhost:3000");
   } catch (err) {
