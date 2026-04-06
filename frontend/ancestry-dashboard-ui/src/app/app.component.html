@@ -203,7 +203,16 @@
 </style>
 
 <main class="main">
-  <div class="content"></div>
+  <div class="app-root">
+    <h1>Ancestry Dashboard</h1>
+    <p>Health: {{ status }}</p>
+
+    <h2>Stats</h2>
+    <pre>{{ stats | json }}</pre>
+
+    <h2>Events</h2>
+    <pre>{{ events | json }}</pre>
+  </div>
 </main>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
@@ -213,5 +222,3 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<router-outlet />
