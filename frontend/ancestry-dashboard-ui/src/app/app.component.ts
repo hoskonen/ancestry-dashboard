@@ -5,12 +5,14 @@ import {
   EventStats,
   TelemetryEvent,
 } from './core/services/telemetry-api.service';
+import { DashboardComponent } from './features/dashboard/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DashboardComponent],
   templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   status = 'loading...';

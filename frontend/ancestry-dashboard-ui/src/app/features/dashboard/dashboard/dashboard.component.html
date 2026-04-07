@@ -1,0 +1,47 @@
+<div class="layout">
+  <aside class="sidebar">
+    <h2>Menu</h2>
+    <ul>
+      <li>Dashboard</li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <p>Status: {{ status }}</p>
+    </header>
+
+    <section class="filter-bar">
+      <input #eventInput type="text" placeholder="Filter by event" [value]="eventFilter" />
+
+      <input #sourceInput type="text" placeholder="Filter by source" [value]="sourceFilter" />
+
+      <input #limitInput type="number" min="1" [value]="limit" />
+
+      <button
+        type="button"
+        (click)="applyFilters(eventInput.value, sourceInput.value, limitInput.value)"
+      >
+        Apply
+      </button>
+
+      <button type="button" (click)="resetFilters()">Reset</button>
+    </section>
+
+    <section class="content">
+      <div class="cards">
+        <div class="card">
+          <h3>Total Events</h3>
+          <p>{{ stats?.total ?? 0 }}</p>
+        </div>
+      </div>
+
+      <section class="events">
+        <h2>Events</h2>
+        <ul>
+          <li *ngFor="let e of events">{{ e.event }} ({{ e.source }})</li>
+        </ul>
+      </section>
+    </section>
+  </main>
+</div>

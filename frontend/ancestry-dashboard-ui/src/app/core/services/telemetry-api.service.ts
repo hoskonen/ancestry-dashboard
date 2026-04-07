@@ -41,7 +41,7 @@ export class TelemetryApiService {
   getEvents(filters: GetEventsParams = {}): Observable<TelemetryEvent[]> {
     let params = new HttpParams();
 
-    if (filters.event) {
+    if (filters.event?.trim()) {
       params = params.set('event', filters.event);
     }
 
