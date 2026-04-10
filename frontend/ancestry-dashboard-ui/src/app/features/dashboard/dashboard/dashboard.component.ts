@@ -81,4 +81,11 @@ export class DashboardComponent implements OnInit {
     this.limit = 20;
     this.loadEvents();
   }
+
+  getEventCount(eventName: string): number {
+    return (
+      this.stats?.byEvent?.find((row: { event: string; count: number }) => row.event === eventName)
+        ?.count ?? 0
+    );
+  }
 }
