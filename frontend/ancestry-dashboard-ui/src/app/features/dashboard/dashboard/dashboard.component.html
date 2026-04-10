@@ -32,9 +32,11 @@
       <div class="cards">
         <div class="card">
           <h3>Total Events</h3>
-          <p>player_step: {{ getEventCount('player_step') }}</p>
-          <p>save_game: {{ getEventCount('save_game') }}</p>
-          <p>load_game: {{ getEventCount('load_game') }}</p>
+          <app-telemetry-card title="Player Steps" [value]="getEventCount('player_step')" />
+
+          <app-telemetry-card title="Save Game" [value]="getEventCount('save_game')" />
+
+          <app-telemetry-card title="Load Game" [value]="getEventCount('load_game')" />
         </div>
       </div>
 

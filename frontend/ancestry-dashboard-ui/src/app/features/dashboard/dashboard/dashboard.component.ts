@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TelemetryApiService } from '../../../core/services/telemetry-api.service';
 import { FormsModule } from '@angular/forms';
+import { TelemetryCard } from '../components/telemetry-card/telemetry-card.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TelemetryCard],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
